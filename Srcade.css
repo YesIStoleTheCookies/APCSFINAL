@@ -1,0 +1,18 @@
+h1 {
+  color: blue;
+  font-family:cursive;
+  font-size: 70px;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+
+}
+body {
+  color: black;
+  font-family: sans-serif;
+  padding: 100px;
+}
+
+.BOARD{
+  float: center;
+}

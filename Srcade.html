@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A Wacky Mole Game</title>
+    <link rel = "stylesheet", href="Srcade.css", type=text/css>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Arcade</h1>
+    </div>
+    <h2>A Wacky Mole Game</h2>
+    <p>
+      The rules are simple: You have 60 seconds to click on moles and earn as many points as possible.
+      Just good old Whack-a-Mole, with a twist: <b>ECONOMY</b>.<br>
+      What could that possibly mean, you ask?<br>
+      Well, since the invention of farming in 12,000 BC, humanity has
+      made countless technological advancements. Thus, it is only logical that
+      anti-mole advocates have developed offensive measures beyond mere mallets.
+      They are available for purchase in our Weapons Catalogue below. <br><br>
+    </p>
+    <div class="list">
+      <img src="https://p81.cooltext.com/Rendered/Cool%20Text%20-%20Weapons%20Catalogue%20-357216759317889.png" alt="WEAPONS CATALOGUE">
+      <p>Earn points by hitting moles and spend them on upgrades to hit even more moles to get more points to get more upgrades to hit more moles to get more points!<br>
+        You're goal is to end with the greatest amount of points.
+      </p>
+      <div class = "up1">
+        <br> <p><b>Chaos Control</b></p><br>
+        <img src="https://i.ytimg.com/vi/wYF7T_C4cIs/hqdefault.jpg" alt="shadow the hedgehog" height="200">
+        <p>The future is now, thanks to SCIENCE! Use Chaos Control to slow down the moles' perception of time by 50%!<br>
+          Cost: 5 <br>Duration: 5 seconds <br>Key: Q<br>
+        </p>
+      </div>
+      <div class="up2">
+        <p><b>Summon Jaraxxus, eredar lord of the Burning Legion</b></p>
+        <img src="https://i1.sndcdn.com/artworks-000069333301-z6siun-t500x500.jpg" alt="you face Jaraxxus, eradar lord of the Burning Legion" height="200">
+        <p>The enemy faces Jaraxxus, eradar lord of the Burning Legion! Unleash his wrath in a burst of fire, instantly clearing all visible moles. <br>
+        Cost: 5 <br>Key: W</p>
+      </div>
+      <div class="up3">
+        <p><b>COVID-19</b></p>
+        <img src="https://images.newscientist.com/wp-content/uploads/2020/02/11165812/c0481846-wuhan_novel_coronavirus_illustration-spl.jpg" alt="wuhan fluman" height="200">
+        <br><p>Stay home, stay safe! All moles who surface during this time will die after 1 second. <br>Cost: 5 <br>Duration: 5 seconds <br>Key: E</p>
+      </div>
+      <div class="start">
+        <button type="startgame" id="startbutton" onclick="gameLoop()"><img src="https://www.pngitem.com/pimgs/m/157-1579149_transparent-start-button-png-pixel-game-start-button.png" alt="start" height="100"></button>
+      </div>
+    </div>
+
+
+    <div class="BOARD">
+      <!--MOLE BUTTONS-->
+      <p>Time: </p>
+      <p  id ="timeDisp">60</p>
+      <button type="mole" id="mole11" style = "visibility: hidden;" onclick="moleClicked('mole11')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole12" style = "visibility: hidden;" onclick="moleClicked('mole12')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole13" style = "visibility: hidden;" onclick="moleClicked('mole13')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole14" style = "visibility: hidden;" onclick="moleClicked('mole14')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole15" style = "visibility: hidden;" onclick="moleClicked('mole15')"><img src = "mole.png" height = "25"></button>
+      <br>
+      <button type="mole" id="mole21" style = "visibility: hidden;" onclick="moleClicked('mole21')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole22" style = "visibility: hidden;" onclick="moleClicked('mole22')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole23" style = "visibility: hidden;" onclick="moleClicked('mole23')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole24" style = "visibility: hidden;" onclick="moleClicked('mole24')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole25" style = "visibility: hidden;" onclick="moleClicked('mole25')"><img src = "mole.png" height = "25"></button>
+      <br>
+      <button type="mole" id="mole31" style = "visibility: hidden;" onclick="moleClicked('mole31')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole32" style = "visibility: hidden;" onclick="moleClicked('mole32')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole33" style = "visibility: hidden;" onclick="moleClicked('mole33')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole34" style = "visibility: hidden;" onclick="moleClicked('mole34')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole35" style = "visibility: hidden;" onclick="moleClicked('mole35')"><img src = "mole.png" height = "25"></button>
+      <br>
+      <button type="mole" id="mole41" style = "visibility: hidden;" onclick="moleClicked('mole41')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole42" style = "visibility: hidden;" onclick="moleClicked('mole42')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole43" style = "visibility: hidden;" onclick="moleClicked('mole43')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole44" style = "visibility: hidden;" onclick="moleClicked('mole44')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole45" style = "visibility: hidden;" onclick="moleClicked('mole45')"><img src = "mole.png" height = "25"></button>
+      <br>
+      <button type="mole" id="mole51" style = "visibility: hidden;" onclick="moleClicked('mole51')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole52" style = "visibility: hidden;" onclick="moleClicked('mole52')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole53" style = "visibility: hidden;" onclick="moleClicked('mole53')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole54" style = "visibility: hidden;" onclick="moleClicked('mole54')"><img src = "mole.png" height = "25"></button>
+      <button type="mole" id="mole55" style = "visibility: hidden;" onclick="moleClicked('mole55')"><img src = "mole.png" height = "25"></button>
+      <br>
+      <p>Score: </p>
+      <p id = "scoreDisp">0</p>
+    </div>
+
+    <script>
+      var score = 0
+      var time = 60
+
+
+      function gameLoop(){
+        document.getElementById("startbutton").style.visibility = "hidden"
+        setInterval(timer, 1000);
+        setInterval(spawnMole, 500);
+        setTimeout(gameOver, 60000);
+        
+
+
+
+      }
+      function gameOver(){
+        document.write("Game Over! Your score is: "+score+"!<br>")
+        if(score==69){
+          document.write("That's a NICE score!")
+        }
+        else if(score==420){
+          document.write("That's a HIGH score!")
+        }
+      }
+
+      function spawnMole() {
+        var times=Math.ceil(Math.random()*2)
+        for(var i =0;i<times;i++){
+          var num1 = Math.ceil(Math.random()*5)
+          var num2 = Math.ceil(Math.random()*5)
+          document.getElementById('mole'+num1+num2).style.visibility="visible"
+          setTimeout(function(){despawnMole(num1,num2)}, 2000)
+        }
+
+      }
+      function despawnMole(num1, num2){
+        document.getElementById('mole'+num1+num2).style.visibility="hidden";
+      }
+      function timer(){
+        time=time-1
+        document.getElementById('timeDisp').innerHTML=time;
+      }
+      function moleClicked(moleNum){
+        document.getElementById(moleNum).style.visibility="hidden"
+        score = score+1
+        document.getElementById('scoreDisp').innerHTML=score;
+
+      }
+    </script>
+  </body>
+
+</html>
