@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Gamedev Canvas Workshop</title>
+    <link rel = "shortcut icon" href="APCSArcadeico.ico">
+    <link rel = "apple-touch-icon" href="APCSArcadeFavicon.png">
+    <link rel = "icon" sizes="192x192" href="APCSArcadeFavicon.png">
+    <style>
+    	* { padding: 0; margin: 0; }
+    	canvas { background: #eee; display: block; margin: 0 auto; }
+    </style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="1900" height="949" style="border:10px solid"></canvas>
+
+<script>
+	var canvas = document.getElementById("myCanvas");
+	var ctx = canvas.getContext("2d");
+	var x = canvas.width/2;
+	var y = canvas.height/2 + 250;
+	var circx = canvas.width/2 ;
+	var circy = canvas.height/2 + 250;
+	var d = 3;
+	var upPressed = false;
+	var downPressed = false;
+	var leftPressed = false;
+	var rightPressed = false;
+	var stage = "precircle";
+	var rotation = 0;
+	var rectx = 0;
+	var recty = 0;
+	var dcirc = 2;
+	var hit = false;
+	var timer = 0;
+	var timer2 = 0;
+	var rand = 5000* Math.random();
+	var decided = false;
+	var gametime = 0;
+	var xproj = [];
+	var yproj = [];
+	var projstage;
+	document.addEventListener("keydown", keyDownHandler, false);
+	document.addEventListener("keyup", keyUpHandler, false);
+	for(var i = 0; i < 30; i++){
+		xproj[i] = canvas.width * Math.random();
+		yproj[i] = canvas.height * Math.random();
+	}
+	function keyDownHandler(e) {
+	    if(e.key == "Right" || e.key == "ArrowRight") {
+	        rightPressed = true;
+	    }
+	    if(e.key == "Left" || e.key == "ArrowLeft") {
+	        leftPressed = true;
+	    }
+	    if(e.key == "Up" || e.key == "ArrowUp"){
+	    	upPressed = true;
+	    }
+	    if(e.key == "Down" || e.key == "ArrowDown"){
+	    	downPressed = true;
+	    }
+	}
+	function keyUpHandler(e) {
+	    if(e.key == "Right" || e.key == "ArrowRight") {
+	        rightPressed = false;
+	    }
+	    if(e.key == "Left" || e.key == "ArrowLeft") {
+	        leftPressed = false;
+	    }
+	    if(e.key == "Up" || e.key == "ArrowUp"){
+	    	upPressed = false;
+	    }
+	    if(e.key == "Down" || e.key == "ArrowDown"){
+	    	downPressed = false;
+	    }
+	}
+	function drawCharacter() {
+	    ctx.beginPath();
+	    ctx.arc(x, y, 8, 0, Math.PI*2);
+	    ctx.fillStyle = "#000000";
+	    ctx.fill();
+	    ctx.closePath();
+	}
+	function drawProjectiles(){
+		ctx.beginPath();
+		ctx.fillStyle = "#FF0000";
+		for(var i = 0; i < 30; i++){
+	    	ctx.arc(xproj[i], yproj[i], 26, 0, Math.PI*2);
+	    	ctx.fill();
+	    	ctx.closePath();
+	    }
+	}
+	function drawpreProjectiles(){
+		ctx.beginPath();
+		ctx.fillStyle = "#FBFF00";
+		for(var i = 0; i < 30; i++){
+	    	ctx.arc(xproj[i], yproj[i], 26, 0, Math.PI*2);
+	    	ctx.fill();
+	    	ctx.closePath();
+	    }
+	}
+	function drawPreCircle(){
+		var circx = canvas.width/2 ;
+		var circy = canvas.height/2 + 250;
+		ctx.beginPath();
+		ctx.fillStyle = "#FBFF00";
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+	    ctx.arc(circx, circy, 150, 0, Math.PI*2);
+	    ctx.fillStyle = "#FFFFFF";
+	    ctx.fill();
+	    ctx.closePath();
+	}
+	function drawCircle(){
+		ctx.beginPath();
+		ctx.fillStyle = "#FF3C3C";
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+	    ctx.arc(circx, circy, 150, 0, Math.PI*2);
+	    ctx.fillStyle = "#FFFFFF";
+	    ctx.fill();
+	    ctx.closePath();
+	}
+	function drawPreHorBeam(){
+		ctx.beginPath();
+	    ctx.fillStyle = "#FBFF00";
+	    ctx.fillRect(rectx, recty, canvas.width, 1);
+	    ctx.closePath();
+	}
+	function drawPreVertBeam(){
+		ctx.beginPath();
+	    ctx.fillStyle = "#FBFF00";
+	    ctx.fillRect(recty, rectx, 1, canvas.height);
+	    ctx.closePath();
+	}
+	function drawHorBeam(){
+		ctx.beginPath();
+	    ctx.fillStyle = "#FF3C3C";
+	    ctx.fillRect(rectx, recty, canvas.width, 1);
+	    ctx.closePath();
+	}
+	function drawVertBeam(){
+		ctx.beginPath();
+	    ctx.fillStyle = "#FF3C3C";
+	    ctx.fillRect(recty, rectx, 1, canvas.height);
+	    
+	    ctx.closePath();
+	}
+	function draw() {
+		gametime+=.01;
+		timer+=10;
+		timer2 += 10;
+	    ctx.clearRect(0, 0, canvas.width, canvas.height);
+	    if (stage == "precircle"){
+	    	drawPreCircle();
+	    	if(timer >= 2000){
+	    		stage = "circleCW";
+	    		timer = 0;
+	    		timer2 = 0;
+	    	}
+	    }
+	    if(stage == "circleCW"){
+			drawCircle();
+			diffx = circx - canvas.width/2;
+			diffy = circy - canvas.height/2;
+			circx += dcirc * ((- diffy)/(Math.sqrt(Math.pow(diffx, 2) + Math.pow(diffy, 2))));
+			circy += dcirc * ((diffx)/(Math.sqrt(Math.pow(diffx, 2) + Math.pow(diffy, 2))));
+			if(Math.sqrt(Math.pow(circx - x, 2) + Math.pow(circy - y, 2)) >= 147){
+				hit = true;
+			}
+			if(timer2 >= 7500){
+				stage = "prebeams";
+				timer2 = 0;
+				timer = 0;
+				decided = false;
+			}
+			if(decided == true){
+				if(timer >= rand){
+					stage = "circleCCW";
+					decided = false;
+					timer = 0;
+				}
+			}
+			else{
+				rand = 5000 * Math.random();
+				decided = true;
+				timer = 0;
+			}
+		}
+		if(stage == "circleCCW"){
+			drawCircle();
+			diffx = circx - canvas.width/2;
+			diffy = circy - canvas.height/2;
+			circx += dcirc * ((diffy)/(Math.sqrt(Math.pow(diffx, 2) + Math.pow(diffy, 2))));
+			circy += dcirc * ((- diffx)/(Math.sqrt(Math.pow(diffx, 2) + Math.pow(diffy, 2))));
+			if(Math.sqrt(Math.pow(circx - x, 2) + Math.pow(circy - y, 2)) >= 147){
+				hit = true;
+			}
+			if(timer2 >= 75000){
+				stage = "prebeams";
+				timer2 = 0;
+				timer = 0;
+				decided = false;
+			}
+			if(decided == true){
+				if(timer >= rand){
+					stage = "circleCW";
+					decided = false;
+				}
+			}
+			else{
+				rand = 5000 * Math.random();
+				decided = true;
+				timer = 0;
+			}
+		}
+		if(stage == "prebeams"){
+			for(var i = 0; i < 10; i++){
+				recty = 100 * i;
+				drawPreHorBeam();
+			}
+			for(var i = 0; i < 20; i++){
+				recty = 100 * i;
+				drawPreVertBeam();
+			}
+			if(timer >= 750){
+				stage = "beams";
+				timer = 0;
+			}
+		}
+		if(stage == "beams"){
+			for(var i = 0; i <= 10; i++){
+				recty = 100 * i;
+				drawHorBeam();
+				if(Math.abs(y - recty) <= 4){
+			    	hit = true;
+			    }
+			}
+			for(var i = 0; i <= 20; i++){
+				recty = 100 * i;
+				drawVertBeam();
+				if(Math.abs(x - recty) <= 4){
+			    	hit = true;
+			    }
+			}
+			if(timer >= 2000){
+				stage = "preprojectiles";
+				timer = 0;
+			}
+		}
+		if(stage == "preprojectiles"){
+			drawpreProjectiles();
+			if(timer >= 500){
+				timer = 0;
+				stage = "projectiles1";
+			}
+		}
+		if(stage == "projectiles1"){
+			drawProjectiles();
+			for(var i = 0; i < 30; i++){
+				yproj[i] +=10;
+				if(Math.sqrt(Math.pow(xproj[i] - x, 2) + Math.pow(yproj[i] - y, 2)) <= 16){
+					hit = true;
+				}
+			}
+			if(timer >= 1000){
+				timer = 0;
+				stage = "precircle";
+			}
+		}
+	    drawCharacter();
+	    if(rightPressed && upPressed){
+	    	x += d / Math.sqrt(2);
+	    	y -= d / Math.sqrt(2);
+	    }
+	    else if(rightPressed && downPressed){
+	    	x += d / Math.sqrt(2);
+	    	y += d / Math.sqrt(2);
+	    }
+	    else if(leftPressed && downPressed){
+	    	x -= d / Math.sqrt(2);
+	    	y += d / Math.sqrt(2);
+	    }
+	    else if(leftPressed && upPressed){
+	    	x -= d / Math.sqrt(2);
+	    	y -= d / Math.sqrt(2);
+	    }
+	    else{
+		    if(rightPressed) {
+	        	x += d;
+		    }
+		    if(leftPressed) {
+		        x -= d;
+		    }
+			if(upPressed){
+				y -= d;
+			}
+			if(downPressed){
+				y += d;
+			}
+		}
+		if(hit == true){
+			alert("GAME OVER     Time survived: " + Math.round(gametime) + " seconds");
+            document.location.reload();
+		}
+	}
+
+setInterval(draw, 10);
+</script>
+
+</body>
+</html>
