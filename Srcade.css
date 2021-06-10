@@ -4,15 +4,116 @@ h1 {
   font-size: 70px;
   display: flex;
   justify-content: center;
-  background-color: white;
+
+}
+h2{
 
 }
 body {
+  padding-top: 100px;
+  padding-bottom: 100px;
   color: black;
   font-family: sans-serif;
-  padding: 100px;
+  background-color: tan;
+  background-image:url("grass.png");
+  background-attachment: scroll;
+
+}
+.wc{
+  margin-left: 100px;
+  margin-right: 100px;
+}
+.intro{
+  padding-left: 100px;
+  padding-right: 100px;
+
+}
+.up1{
+  background-color: lightGreen;
+  background-image: url("chaoscontrol.jpeg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: left;
+  text-decoration-color: white;
+  color: white;
+  margin-bottom: 25px;
+
+}
+.up2{
+  background-color: lavender;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: left;
+  background-image: url("jaraxxus.jpeg");
+  background-repeat: repeat;
+  background-size: cover;
+  color: black;
+  background-attachment: fixed;
+  margin-bottom: 25px;
+
+}
+.up3{
+  background-color: maroon;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: left;
+  margin-bottom: 25px;
+
+  background-image: url("covid.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
 }
 
+.start{
+  display:flex;
+  justify-content: center;
+  margin: 25px;
+}
+.row{
+  display: flex;
+  justify-content: center;
+
+}
+.mole{
+  margin-left: 6px;
+  margin-right: 6px;
+  padding: 5px;
+}
+
+
 .BOARD{
-  float: center;
+  margin: 25px;
+  outline: 5px dashed tan;
+  margin-left: 200px;
+  margin-right: 200px;
+
+}
+.disp{
+  margin-left: 200px;
+  margin-right: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: 25px;
+
+}
+.upgrades{
+  margin-left: 25px;
+  margin-right: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }
